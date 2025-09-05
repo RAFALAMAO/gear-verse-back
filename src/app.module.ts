@@ -6,8 +6,8 @@ import config from '@/config';
 // ** Modules
 import { ConfigModule } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
-import { DatabaseModule } from './module/database/database.module';
-import { ProductModule } from './module/product/product.module';
+import { DatabaseModule } from './infrastructure/nestjs/module/database/database.module';
+import { ProductModule } from './infrastructure/nestjs/module/product/product.module';
 
 // ** Services
 import { AppService } from './app.service';

@@ -14,7 +14,7 @@ import { IProductService } from '@/domain/service/product/IProduct.service';
 import { Product } from '@/infrastructure/typeorm/entity/Product.entity';
 
 // ** Symbols
-import { ProductSymbols } from '@/module/product/symbols';
+import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
 
 @Controller('product')
 @ApiTags('Product')

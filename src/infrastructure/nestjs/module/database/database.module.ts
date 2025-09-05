@@ -1,8 +1,10 @@
-import config from '@/config';
 import { Global, Module } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormconfig from 'ormconfig';
+
+// ** Config
+import config from '@/config';
 
 @Global()
 @Module({
