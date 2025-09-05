@@ -1,19 +1,20 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import { DataSource } from 'typeorm';
 
-const ormconfig: TypeOrmModuleOptions = {
+dotenv.config();
+const ormconfigcli = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT),
+  port: parseInt(<string>process.env.DB_PORT),
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities: [__dirname + '/src/infrastructure/typeorm/entity/*.entity{.ts,.js}'],
   migrations: [__dirname + '/src/infrastructure/typeorm/migration/*{.ts,.js}'],
   migrationsTableName: 'migrations',
-  migrationsRun: false,
+  migrationsRun: true,
   synchronize: false,
   logging: false,
-  autoLoadEntities: true,
-};
+});
 
-export default ormconfig;
+export default ormconfigcli;

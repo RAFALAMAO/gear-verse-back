@@ -11,7 +11,7 @@ import ormconfig from 'ormconfig';
     TypeOrmModule.forRootAsync({
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { type, username, host, database, password, port } = configService.postgres;
+        const { type, username, host, database, password, port } = configService.db;
         return {
           ...ormconfig,
           type: type as any,
