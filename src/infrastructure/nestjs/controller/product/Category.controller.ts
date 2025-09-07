@@ -11,7 +11,7 @@ import {
 import { ICategoryService } from '@/domain/service/product/ICategory.service';
 
 // ** Dtos
-import { getAllWithProductsCountResDto } from '@/domain/dto/product/Category.dto';
+import { GetAllWithProductsCountResDto } from '@/domain/dto/product/Category.dto';
 
 // ** Symbols
 import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
@@ -38,7 +38,7 @@ export class CategoryController {
     status: 200,
   })
   @Get('all-with-products-count')
-  async getAllWithProductsCount(): Promise<getAllWithProductsCountResDto[]> {
+  async getAllWithProductsCount(): Promise<GetAllWithProductsCountResDto[]> {
     return await this.categoryService.getAllWithProductsCount();
   }
 }

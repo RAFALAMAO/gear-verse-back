@@ -1,4 +1,4 @@
-export class getAllWithProductsCountResDto {
+export class GetAllWithProductsCountResDto {
   id: number;
   name: string;
   productsCount: number;

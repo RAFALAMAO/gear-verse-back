@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class ProductGetBySearchQuery {
   @ApiProperty()
@@ -20,4 +20,28 @@ export class ProductGetByIdParam {
   @IsInt()
   @Transform(({ value }) => Number(value))
   id: number;
+}
+
+export class ProductGetByFiltersPagQuery {
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  search: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  category: string;
+
+  @ApiProperty()
+  @IsInt()
+  @Transform(({ value }) => Number(value))
+  @IsOptional()
+  page: number;
+
+  @ApiProperty()
+  @IsInt()
+  @Transform(({ value }) => Number(value))
+  @IsOptional()
+  limit: number;
 }

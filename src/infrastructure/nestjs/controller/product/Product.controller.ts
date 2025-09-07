@@ -18,10 +18,14 @@ import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
 
 // ** Swagger Dtos
 import {
+  ProductGetByFiltersPagQuery,
   ProductGetByIdParam,
   ProductGetBySearchQuery,
   ProductGetLatestQuery,
 } from '@/infrastructure/swagger/dto/Product.swagger';
+
+// ** Dtos
+import { FindByFiltersPagResDto } from '@/domain/dto/product/Product.dto';
 
 @Controller('product')
 @ApiTags('Product')
@@ -91,5 +95,18 @@ export class ProductController {
   @Get('get-by-id/:id')
   async getById(@Param() param: ProductGetByIdParam): Promise<Product | null> {
     return await this.productService.getById(param.id);
+  }
+
+  @ApiOperation({
+    summary: 'Find products by filters and pagination from database',
+  })
+  @ApiResponse({
+    status: 200,
+  })
+  @Get('find-by-filters-pag')
+  async findByFiltersPag(
+    @Query() query: ProductGetByFiltersPagQuery,
+  ): Promise<FindByFiltersPagResDto> {
+    return await this.productService.findByFiltersPag(query);
   }
 }

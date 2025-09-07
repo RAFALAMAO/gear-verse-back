@@ -1,3 +1,4 @@
+import { FindByFiltersPagDataDto, FindByFiltersPagResDto } from '@/domain/dto/product/Product.dto';
 import { IProductRepository } from '@/domain/repository/product/IProduct.repository';
 import { IProductService } from '@/domain/service/product/IProduct.service';
 import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
@@ -30,6 +31,10 @@ export class ProductService implements IProductService {
 
   async getById(id: number): Promise<Product | null> {
     return await this.productRepo.getById(id);
+  }
+
+  async findByFiltersPag(data: FindByFiltersPagDataDto): Promise<FindByFiltersPagResDto> {
+    return await this.productRepo.findByFiltersPag(data);
   }
 
   // Mutation

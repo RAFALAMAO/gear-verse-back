@@ -1,8 +1,8 @@
-import { getAllWithProductsCountResDto } from '@/domain/dto/product/Category.dto';
+import { GetAllWithProductsCountResDto } from '@/domain/dto/product/Category.dto';
 
 export interface ICategoryService {
   // Query
-  getAllWithProductsCount(): Promise<getAllWithProductsCountResDto[]>;
+  getAllWithProductsCount(): Promise<GetAllWithProductsCountResDto[]>;
 
   // Mutation
 }
