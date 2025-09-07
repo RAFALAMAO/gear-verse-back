@@ -16,5 +16,21 @@ export class ProductService implements IProductService {
     return await this.productRepo.getAll();
   }
 
+  async countAll(): Promise<number> {
+    return await this.productRepo.countAll();
+  }
+
+  async findBySearch(search: string): Promise<Product[]> {
+    return await this.productRepo.findBySearch(search);
+  }
+
+  async getLatest(limit: number): Promise<Product[]> {
+    return await this.productRepo.getLatest(limit);
+  }
+
+  async getById(id: number): Promise<Product | null> {
+    return await this.productRepo.getById(id);
+  }
+
   // Mutation
 }

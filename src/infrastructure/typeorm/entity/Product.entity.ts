@@ -18,6 +18,12 @@ export class Product {
   @Column('float')
   price: number;
 
+  @Column('boolean', { default: true })
+  available: boolean;
+
+  @Column('varchar', { default: '10/10', length: 255 })
+  status: string;
+
   // Relations
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;

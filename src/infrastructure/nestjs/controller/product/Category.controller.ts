@@ -1,0 +1,44 @@
+import { Controller, Get, Inject, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+
+// ** Services
+import { ICategoryService } from '@/domain/service/product/ICategory.service';
+
+// ** Dtos
+import { getAllWithProductsCountResDto } from '@/domain/dto/product/Category.dto';
+
+// ** Symbols
+import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
+
+@Controller('category')
+@ApiTags('Category')
+@ApiSecurity('x-api-key')
+@ApiUnauthorizedResponse({
+  description: 'Unauthorized',
+  type: 'Unauthorized',
+})
+// @UseGuards(AuthGuard('api-key'))
+@UsePipes(new ValidationPipe())
+export class CategoryController {
+  constructor(
+    @Inject(ProductSymbols.ICategoryService)
+    private readonly categoryService: ICategoryService,
+  ) {}
+
+  @ApiOperation({
+    summary: 'Get all categories with products count',
+  })
+  @ApiResponse({
+    status: 200,
+  })
+  @Get('all-with-products-count')
+  async getAllWithProductsCount(): Promise<getAllWithProductsCountResDto[]> {
+    return await this.categoryService.getAllWithProductsCount();
+  }
+}

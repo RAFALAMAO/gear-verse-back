@@ -1,10 +1,46 @@
+import config from '@/config';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { json } from 'express';
 import { AppModule } from './app.module';
-import config from './config';
+import { corsOptions } from './config/cors';
+import { ErrorsInterceptor } from './interceptors/errors.interceptors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // ** Config
+  app.enableCors(corsOptions);
+  app.use(json({ limit: '10mb' }));
+  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(config().app.globalPrefix);
+  app.useGlobalInterceptors(new ErrorsInterceptor());
+
+  // ** Swagger
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Zona Gaming API')
+    .setVersion('1.0')
+    .setDescription(
+      `Zona Gaming API Documentation: This documentation provides instructions on making requests to the Zona Gaming API.`,
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup(config().app.swaggerUrl, app, document, {
+    swaggerOptions: {
+      docExpansion: 'none',
+      filter: true,
+      tagsSorter: 'alpha',
+      operationsSorter: 'method',
+      syntaxHighlight: {
+        theme: 'arta',
+      },
+    },
+    customSiteTitle: 'Zona Gaming API - Documentation',
+  });
+
+  // ** Start
   await app.listen(config().app.port ?? 3000);
 }
 
@@ -13,6 +49,7 @@ bootstrap()
     console.log(
       'Listening on: http://localhost:' + config().app.port + '/' + config().app.globalPrefix,
     );
+    console.log('Swagger: http://localhost:' + config().app.port + '/' + config().app.swaggerUrl);
     console.log('Server started successfully 🎸');
     if (config().app.env === 'prod') {
       console.log('\x1b[31m\n!!!!! PRODUCTION MODE !!!!! \x1b[0m');

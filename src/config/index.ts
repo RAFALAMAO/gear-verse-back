@@ -8,6 +8,7 @@ export default registerAs('config', () => {
       apiKey: process.env.APP_API_KEY,
       globalPrefix: process.env.APP_GLOBAL_PREFIX,
       env: process.env.NODE_ENV,
+      swaggerUrl: process.env.APP_SWAGGER_URL,
     },
     db: {
       type: process.env.DB_TYPE,
