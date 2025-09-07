@@ -5,7 +5,6 @@ import { json } from 'express';
 
 // ** Config
 import config from './config';
-import { corsOptions } from './config/cors';
 
 // ** Modules
 import { AppModule } from './app.module';
@@ -16,11 +15,15 @@ import { ApiKeyGuard } from './infrastructure/nestjs/guards/ApiKey.guard';
 // ** Interceptors
 import { ErrorsInterceptor } from './interceptors/errors.interceptors';
 
+// ** Services
+import { AppService } from './app.service';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const appService = app.get(AppService);
 
   // ** Config
-  app.enableCors(corsOptions);
+  app.enableCors(appService.getCorsOptions());
   app.use(json({ limit: '10mb' }));
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(config().app.globalPrefix);

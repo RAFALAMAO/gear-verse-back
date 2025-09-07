@@ -48,7 +48,7 @@ export class ProductController {
   @ApiResponse({
     status: 200,
   })
-  @Get('all')
+  @Get('get-all')
   async getAll(): Promise<Product[]> {
     return await this.productService.getAll();
   }

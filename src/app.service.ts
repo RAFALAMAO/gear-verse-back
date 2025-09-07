@@ -1,8 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(private configService: ConfigService) {}
+
+  getCorsOptions(): CorsOptions {
+    const env = this.configService.get<string>('config.app.env');
+    const whiteListDev = env === 'dev' ? ['http://localhost:5173'] : [];
+    const whiteList = [...whiteListDev, 'https://test.com'];
+
+    return {
+      origin: function (origin, callback) {
+        if (!origin || whiteList.includes(origin)) {
+          return callback(null, true);
+        }
+        return callback(new Error('CORS: origen no permitido'), false);
+      },
+      credentials: true,
+    };
   }
 }
