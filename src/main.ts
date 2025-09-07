@@ -1,10 +1,19 @@
-import config from '@/config';
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json } from 'express';
-import { AppModule } from './app.module';
+
+// ** Config
+import config from './config';
 import { corsOptions } from './config/cors';
+
+// ** Modules
+import { AppModule } from './app.module';
+
+// ** Guards
+import { ApiKeyGuard } from './infrastructure/nestjs/guards/ApiKey.guard';
+
+// ** Interceptors
 import { ErrorsInterceptor } from './interceptors/errors.interceptors';
 
 async function bootstrap() {
@@ -16,6 +25,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(config().app.globalPrefix);
   app.useGlobalInterceptors(new ErrorsInterceptor());
+  app.useGlobalGuards(new ApiKeyGuard(new Reflector()));
 
   // ** Swagger
   const swaggerConfig = new DocumentBuilder()
