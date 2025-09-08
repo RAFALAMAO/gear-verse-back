@@ -31,6 +31,7 @@ export class CategoryRepository implements ICategoryRepository {
           available: true,
         },
       },
+      order: { name: 'ASC' },
     });
   }
 
