@@ -14,6 +14,7 @@ const ormconfig: TypeOrmModuleOptions = {
   synchronize: false,
   logging: false,
   autoLoadEntities: true,
+  ssl: { rejectUnauthorized: false },
 };
 
 export default ormconfig;

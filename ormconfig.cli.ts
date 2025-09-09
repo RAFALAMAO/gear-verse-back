@@ -15,6 +15,7 @@ const ormconfigcli = new DataSource({
   migrationsRun: true,
   synchronize: false,
   logging: false,
+  ssl: { rejectUnauthorized: false },
 });
 
 export default ormconfigcli;
