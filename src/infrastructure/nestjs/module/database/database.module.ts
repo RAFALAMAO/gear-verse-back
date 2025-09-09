@@ -22,6 +22,7 @@ import config from '@/config';
           username: username,
           password: password,
           database: database,
+          ssl: { rejectUnauthorized: false },
         };
       },
     }),
