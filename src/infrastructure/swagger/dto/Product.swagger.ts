@@ -34,6 +34,11 @@ export class ProductGetByFiltersPagQuery {
   category: string;
 
   @ApiProperty()
+  @IsString()
+  @IsOptional()
+  brand: string;
+
+  @ApiProperty()
   @IsInt()
   @Transform(({ value }) => Number(value))
   @IsOptional()

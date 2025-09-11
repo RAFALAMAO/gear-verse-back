@@ -137,7 +137,7 @@ export class ProductRepository implements IProductRepository {
   }
 
   async findByFiltersPag(data: FindByFiltersPagDataDto): Promise<FindByFiltersPagResDto> {
-    const { search, category, page = 1, limit = 10 } = data;
+    const { search, category, brand, page = 1, limit = 10 } = data;
     const take = +limit;
     const skip = (+page - 1) * limit;
 
@@ -145,6 +145,7 @@ export class ProductRepository implements IProductRepository {
 
     search && (where.name = ILike(`%${search}%`));
     category && (where.category = { name: ILike(`%${category}%`) });
+    brand && (where.brand = { name: ILike(`%${brand}%`) });
 
     const [results, total] = await this.productRep.findAndCount({
       where,
