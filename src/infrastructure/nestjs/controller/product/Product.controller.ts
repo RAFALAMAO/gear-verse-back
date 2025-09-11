@@ -34,7 +34,6 @@ import { FindByFiltersPagResDto } from '@/domain/dto/product/Product.dto';
   description: 'Unauthorized',
   type: 'Unauthorized',
 })
-// @UseGuards(AuthGuard('api-key'))
 @UsePipes(new ValidationPipe())
 export class ProductController {
   constructor(

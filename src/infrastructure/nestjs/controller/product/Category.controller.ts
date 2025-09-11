@@ -23,7 +23,6 @@ import { ProductSymbols } from '@/infrastructure/nestjs/module/product/symbols';
   description: 'Unauthorized',
   type: 'Unauthorized',
 })
-// @UseGuards(AuthGuard('api-key'))
 @UsePipes(new ValidationPipe())
 export class CategoryController {
   constructor(
