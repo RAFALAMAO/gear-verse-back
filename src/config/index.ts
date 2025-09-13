@@ -9,6 +9,7 @@ export default registerAs('config', () => {
       globalPrefix: process.env.APP_GLOBAL_PREFIX,
       env: process.env.NODE_ENV,
       swaggerUrl: process.env.APP_SWAGGER_URL,
+      frontDomain: process.env.APP_FRONT_DOMAIN,
     },
     db: {
       type: process.env.DB_TYPE,

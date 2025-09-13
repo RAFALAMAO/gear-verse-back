@@ -8,8 +8,9 @@ export class AppService {
 
   getCorsOptions(): CorsOptions {
     const env = this.configService.get<string>('config.app.env');
+    const frontDomain = this.configService.get<string>('config.app.frontDomain');
     const whiteListDev = env === 'dev' ? ['http://localhost:5173', 'http://localhost:4173'] : [];
-    const whiteList = [...whiteListDev, 'https://zona-gaming.vercel.app'];
+    const whiteList = [...whiteListDev, frontDomain];
 
     return {
       origin: function (origin, callback) {
